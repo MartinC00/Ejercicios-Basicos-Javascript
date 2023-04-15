@@ -1,0 +1,103 @@
+<canvas width="600" height="400"></canvas>
+<h2> PIZARRA DE DIBUJO</h2>
+<h3> Mantenga pulsado para dibujar y cambie de color haciendo click sobre la paleta :) </h3>
+
+<script>
+    var pantalla = document.querySelector('canvas');
+    var pincel = pantalla.getContext('2d');
+
+    pincel.fillStyle = 'grey';
+    pincel.fillRect(0, 0, 600, 400);
+
+    var puedoDibujar = false;
+    
+    var colores = ["red", "green", "blue", "orange", "purple", "black", "white", "brown", "pink", "yellow", "lightblue"];
+    var indexColorActual = 2; //azul color default
+    var cantColores = colores.length;
+
+    var xPaleta = 10; //x inicial de la paleta de colores
+    var yPaleta = 360; //y inicial de la paleta de colores
+    var anchoColor = 52; //ancho y alto de cada color de la paleta
+    var altoColor = 30;
+
+    dibujarPaletaColores();
+    /* La implementacion de dibujarPaletaColores permite modificar tanto la posicion (xPaleta/yPaleta) como el ancho y alto de la paleta de colores, sin afectar su funcionamiento y garantizando su seguridad (no puede dibujarse encima de ella) */
+
+    function dibujarPaletaColores()
+    {
+        xPaletaAux = xPaleta;
+        for(i=0; i<colores.length; i++)
+        {
+            pincel.fillStyle = colores[i];
+            pincel.fillRect(xPaletaAux, yPaleta, anchoColor, altoColor);
+            xPaletaAux += anchoColor;
+        }
+    }
+
+    pantalla.onmousemove = dibujoController; //mientras el mouse se mueva, si la paeta esta segura y el click esta apretado (puedoDibujar=true), se dibujan circulos
+    pantalla.onmousedown = clickController; //si se hace click, debe verificarse si es sobre la paleta para cambiar el color del pincel, o es para dibujar
+    pantalla.onmouseup = deshabilitarDibujar; //si se suelta el mouse, el pincel deja de dibujar
+    
+    function dibujoController(evento)
+    {
+        x = evento.pageX - pantalla.offsetLeft;
+        y = evento.pageY - pantalla.offsetTop;
+
+        if(!isPaleta(x, y) && puedoDibujar) dibujarCirculo(x, y);
+    }
+
+    function isPaleta(x, y)
+    {
+        /* Retorna TRUE si (x,y) estan sobre la paleta y FALSE si (x,y) estan fuera
+        
+        Tareas:
+        -Cambiar el color del pincel.
+        -Garantizar la seguridad de la paleta de colores en el rango especificado (el cual puede variar si se agregan mas colores o se cambia el tamaño y posicion de ellos) con un margen de 10 pixeles por prolijidad. */
+        
+        if(x > xPaleta-10 && x < xPaleta+anchoColor*cantColores+10 && 
+           y > yPaleta-10 && y < yPaleta+altoColor+10)
+            return true;
+
+        else return false;
+    }
+
+    function dibujarCirculo(x, y) 
+    {
+        pincel.fillStyle = colores[indexColorActual];
+        pincel.beginPath();
+        pincel.arc(x, y, 5, 0, 2*Math.PI);
+        pincel.fill();    
+    }
+
+    function clickController(evento) 
+    {
+        x = evento.pageX - pantalla.offsetLeft;
+        y = evento.pageY - pantalla.offsetTop;
+
+        if(isPaleta(x,y))
+        {
+            cambiaColorPincel(x, y);
+        }
+        else puedoDibujar = true; 
+    }
+    
+    function cambiaColorPincel(x, y)
+    {
+        indexColorActual = getColorDePaleta(x, y);
+    }
+
+    //validacion de (x,y) pertenecientes a paleta ya fue hecha en clickController, por ende, solamente necesito evaluar eje X para determinar color (dado que la paleta es horizontal)
+    function getColorDePaleta(x, y) 
+    {
+        xPaletaAux = xPaleta;
+        for(i=0; i<cantColores; i++)
+        {
+            if(x > xPaletaAux && x < xPaletaAux+anchoColor) return i;
+            else xPaletaAux += anchoColor;
+        }
+    }
+
+    function deshabilitarDibujar() { puedoDibujar = false; }
+
+
+</script>

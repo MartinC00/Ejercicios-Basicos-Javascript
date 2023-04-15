@@ -1,0 +1,68 @@
+<meta charset="utf-8"> <script>// meta charset me sirve para definir el tipo de conjunto de datos, algunos navegadores lo definen por defecto (chrome y edge) y otros no, como internet explorer, navegador en el cual si no le ponemos esta instruccion fallan los caracteres especiales como tildes</script> 
+
+<h1>CALCULADORA DE IMC</h1>
+<script>
+
+//Las etiquetas se escriben en minusculas por convencion
+
+alert("Buenas! Vamos a calcular su índice de masa corporal.");
+function saltaLinea()
+{
+	document.write("<br>");
+}
+function imprimeMensaje(msg){
+	document.write("<big>"+msg+"</big>"); //Uso de etiqueta <big>
+	saltaLinea();
+}
+
+function calculaIMC(peso, altura)
+{
+	return (peso / (altura*altura));
+}
+var peso = prompt("Informe su peso en kg: "); // uso de prompt (leyendo datos por teclado)
+var altura = prompt("Informe su altura en metros y usando punto (Ej. 1.75): "); 
+imprimeMensaje("Su IMC es: "+calculaIMC(peso, altura));
+saltaLinea(); 
+imprimeMensaje("Su peso: "+peso);
+imprimeMensaje("Su altura: "+altura);
+saltaLinea(); 
+imprimeMensaje("Ecuación: peso/(altura*altura)");
+
+
+var saltosDeLinea = "<br><br>";
+/*
+Otras pruebas
+
+document.write("Operacion: '5'+'5' = ");
+document.write("5"+"5, concatenacion"); //concatenacion de strings
+//document.write(saltosDeLinea);
+saltaLinea();
+
+document.write("Operacion: '5+5' = ");
+document.write(5+5 + ", suma"); //operacion algebraica: suma
+document.write(saltosDeLinea);
+
+document.write("La suma de las edades de Juan, Pedro y Pablo es... "); 
+document.write("<br>");
+document.write((10+15+20));
+document.write(saltosDeLinea);
+var anio = 2023;
+document.write("Estamos en el año: "+anio);
+document.write(saltosDeLinea);
+
+var decimal = 15.12353246545654;
+document.write("Decimal = "+decimal);
+document.write("<br>");
+document.write("Decimal con round = "+Math.round(decimal));
+*/
+
+
+
+
+
+
+</script>
+
+
+
+	

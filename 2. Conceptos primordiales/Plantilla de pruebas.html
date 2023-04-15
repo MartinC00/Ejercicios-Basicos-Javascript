@@ -1,0 +1,50 @@
+<meta charset="utf-8">
+<h1>ARCHIVO DE PRUEBAS: parseInt, if else, Math.random(), Math.round(), while, for, break, </h1>
+<script >
+
+function saltos(){
+	document.write("<br><br>");
+}
+
+function castingStringInt(num)
+{
+	var resultado = num + 5;
+	saltos();
+	document.write("SIN CASTEO: La suma de "+num+" + 5 = "+resultado);
+	saltos();
+	resultado = parseInt(num)+5;
+	document.write("CON CASTEO: La suma de "+num+" + 5 = "+resultado);
+	saltos();
+}
+
+function isPar(num)
+{
+	if(num % 2==0) document.write("El numero "+num+" es par");
+	else document.write("El numero "+num+" es impar");
+}
+
+function juegoAdivinanza(num)
+{
+	saltos();
+	var numRandom = Math.round(Math.random()*10);
+	if(num==numRandom) document.write("Acertó el numero");
+	else document.write("No acertó, el numero aleatorio era "+numRandom+" y su numero "+num);
+}
+function anioMundiales()
+{
+	document.write("<h3>LISTA DE MUNDIALES</h3>");
+	var anioMundial = 1930;
+	while(anioMundial<=2023)
+	{
+		document.write("Hubo mundial en el año "+anioMundial+"<br><br>");
+		anioMundial+=4;
+	}
+}
+var num = prompt("Ingrese un numero entre 0 y 10: ");
+castingStringInt(num);
+isPar(num);
+juegoAdivinanza(num);
+anioMundiales();
+
+
+</script>

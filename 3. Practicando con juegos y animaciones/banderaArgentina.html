@@ -1,0 +1,18 @@
+<canvas width="800" height="600"></canvas>
+<script>
+	var pantalla = document.querySelector("canvas");
+	var pincel = pantalla.getContext("2d");
+
+	pincel.fillStyle = "lightblue";
+	pincel.fillRect(0, 0, 800, 200);
+	pincel.fillRect(0, 400, 800, 200);
+	
+	pincel.strokeStyle = "black";
+	pincel.strokeRect(0, 200, 800, 200);
+
+	pincel.fillStyle = "yellow";
+	pincel.beginPath();
+	pincel.arc(400, 300, 70, 0, 2*Math.PI);
+	pincel.fill();	
+
+</script>

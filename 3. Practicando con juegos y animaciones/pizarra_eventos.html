@@ -1,0 +1,49 @@
+<canvas width="600" height="400"></canvas>
+<h2>Click izquierdo: dibuja circulo. <br> Click derecho: cambia de color.	</h2>
+<h2>Eventos: onclick, oncontextmenu </h2>
+<script>
+	
+	var pantalla = document.querySelector("canvas");
+	var pincel = pantalla.getContext("2d");
+
+	pincel.fillStyle = "grey";
+	pincel.fillRect(0, 0, 600, 400);
+
+	var colores = ["blue","red","green"];
+	var actualIndexColor = 0;
+	
+	function mostrarAlerta(evento){
+		alert("Usted hizo click en ("+(evento.pageX-pantalla.offsetLeft)+","+(evento.pageY-pantalla.offsetTop)+")"); //sin offset entonces no puedo alcanzar 0,0
+	}
+
+	function dibujarCirculo(evento) //evento es pasado automaticamente por el compilador del navegador al momento del evento onclick
+	{
+		var x = evento.pageX - pantalla.offsetLeft; //offSet es el margen que me sobra y al cual no puedo acceder cuando haga click en el rectangulo gris, por mas que lo intente no puedo acceder al 0,0.
+		var y = evento.pageY - pantalla.offsetTop;
+		
+		pincel.fillStyle = colores[actualIndexColor];
+		pincel.beginPath();
+		pincel.arc(x, y, 10, 0, 2*3.14);
+		pincel.fill();
+		console.log(x+", "+y); //en la consola se pueden visualizar los puntos donde hago click
+	}
+
+	function alterarColor(evento)
+	{
+		actualIndexColor++;
+		if(actualIndexColor >= colores.length) actualIndexColor=0;
+		pincel.fillStyle = colores[actualIndexColor];
+
+		return false; //menú contextual padrón de `canvas` no sea exhibido
+	}
+	
+	//Para asociar la función con el evento onclick, le pasamos la función sin los paréntesis y sin ningún parámetro. Lo que nuestro navegador está haciendo entre bastidores es cargar la función en el compilador y cada vez que el usuario hace clic en la pantalla, la función es ejecutada y recibe como parámetro algunas propiedades y características del evento que luego aprovechamos para extraer las coordenadas.
+
+
+	//pantalla.onclick = mostrarAlerta;
+	pantalla.onclick = dibujarCirculo; // ATENTO!!! variables ONCLICK no se les asigna una funcion con parentesis (), porque sino se llama automaticamente cuando se carga la pagina.
+	pantalla.oncontextmenu = alterarColor;
+
+
+
+</script>
