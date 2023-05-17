@@ -1,6 +1,6 @@
 # 🎮 EJERCICIOS BASICOS JAVASCRIPT
 
-Contiene los ejercicios de 3 cursos de Javascript:
+Contiene los ejercicios de 3 cursos:
 
 * Lógica de Programación: Primeros Pasos
 * Lógica de Programación: Conceptos Primordiales
